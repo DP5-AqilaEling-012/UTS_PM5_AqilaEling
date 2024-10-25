@@ -28,7 +28,6 @@
         android:layout_width="266dp"
         android:layout_height="228dp"
         android:layout_marginTop="20dp"
-        android:contentDescription="Lotso Image"
         android:src="@drawable/lotso"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +38,7 @@
         android:layout_width="376dp"
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/archivo_black"
         android:text="@string/question_text"
         android:textColor="@android:color/white"
         android:textSize="15sp"
@@ -68,43 +67,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@android:color/white"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/days_one"
             android:text="@string/option_a"
-            android:textColor="@android:color/white" />
+            android:textColor="#E91E63"
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/pilihanB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@android:color/white"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/days_one"
             android:text="@string/option_b"
-            android:textColor="@android:color/white" />
+            android:textColor="#E91E63"
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/pilihanC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@android:color/white"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/days_one"
             android:text="@string/option_c"
-            android:textColor="@android:color/white" />
+            android:textColor="#E91E63"
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/pilihanD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@android:color/white"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/days_one"
             android:text="@string/option_d"
-            android:textColor="@android:color/white" />
+            android:textColor="#E91E63"
+            android:textSize="15sp" />
     </RadioGroup>
 
     <!-- Button NEXT -->
     <Button
         android:id="@+id/next"
-        android:layout_width="152dp"
-        android:layout_height="52dp"
+        android:layout_width="190dp"
+        android:layout_height="64dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="#EFE9EA"
         android:fontFamily="@font/adlam_display"
