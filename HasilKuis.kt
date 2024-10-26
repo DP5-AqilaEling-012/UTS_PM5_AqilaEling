@@ -11,13 +11,11 @@ class HasilKuis : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hasilkuis)
-
-        // Mengambil data yang dikirim dari MainActivity
+        
         val benar = intent.getIntExtra("benar", 0)
         val salah = intent.getIntExtra("salah", 0)
         val hasil = intent.getIntExtra("hasil", 0)
-
-        // Menampilkan hasil pada TextView
+        
         val hasilTextView = findViewById<TextView>(R.id.hasil)
         val nilaiTextView = findViewById<TextView>(R.id.nilai)
 
@@ -27,14 +25,14 @@ class HasilKuis : Activity() {
         """.trimIndent()
 
         nilaiTextView.text = hasil.toString()
-
+        
         val btnUlangi = findViewById<Button>(R.id.ulangi)
         btnUlangi.setOnClickListener { ulangi() }
     }
 
     private fun ulangi() {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+        val intent = Intent(applicationContext, IntroductionActivity::class.java)
         startActivity(intent)
-        finish()
+        finish() 
     }
 }
