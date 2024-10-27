@@ -1,6 +1,7 @@
 package com.example.lotsoquiz
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -15,11 +16,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pilihanC: RadioButton
     private lateinit var pilihanD: RadioButton
     private lateinit var gambarLotso: ImageView
+    private lateinit var sharedPreferences: SharedPreferences
     private var nomor: Int = 0
-    
     private var benar: Int = 0
     private var salah: Int = 0
-    
+
     private val pertanyaanKuis = arrayOf(
         "Apa motivasi utama Lotso dalam menguasai Sunnyside Daycare?",
         "Bagaimana perasaan Lotso terhadap pemiliknya yang lama (Daisy)?",
@@ -29,11 +30,16 @@ class MainActivity : AppCompatActivity() {
     )
 
     private val pilihanJawaban = arrayOf(
-        "Untuk melindungi mainan baru", "Karena dia ingin mendominasi dan mengendalikan mainan lainnya", "Karena dia ingin menjadi pemimpin yang baik", "Karena dia ingin kembali ke pemilik aslinya",
-        "Dia masih mencintainya dan berharap kembali padanya", "Dia merasa kecewa dan terluka setelah ditinggalkan", "Dia tidak peduli lagi dan melupakannya", "Dia menyimpan boneka Daisy sebagai kenangan",
-        "Karena dia merasa mereka bukan tanggung jawabnya", "Karena dia ingin membalas dendam kepada Woody", "Karena dia ingin menjadi satu-satunya mainan yang bertahan", "Karena dia sudah putus asa dan kehilangan harapan",
-        "Kekuatannya yang luar biasa", "Karismanya yang membuat mereka patuh", "Cara dia manipulasi dan mengontrol situasi", "Kecerdasannya yang lebih unggul dibandingkan mainan lain",
-        "Kembali ke Daisy", "Dibuang ke tempat sampah oleh Woody", "Diikat pada truk sampah", "Hidup bahagia di Sunnyside"
+        "Untuk melindungi mainan baru", "Karena dia ingin mendominasi dan mengendalikan mainan lainnya",
+        "Karena dia ingin menjadi pemimpin yang baik", "Karena dia ingin kembali ke pemilik aslinya",
+        "Dia masih mencintainya dan berharap kembali padanya", "Dia merasa kecewa dan terluka setelah ditinggalkan",
+        "Dia tidak peduli lagi dan melupakannya", "Dia menyimpan boneka Daisy sebagai kenangan",
+        "Karena dia merasa mereka bukan tanggung jawabnya", "Karena dia ingin membalas dendam kepada Woody",
+        "Karena dia ingin menjadi satu-satunya mainan yang bertahan", "Karena dia sudah putus asa dan kehilangan harapan",
+        "Kekuatannya yang luar biasa", "Karismanya yang membuat mereka patuh",
+        "Cara dia manipulasi dan mengontrol situasi", "Kecerdasannya yang lebih unggul dibandingkan mainan lain",
+        "Kembali ke Daisy", "Dibuang ke tempat sampah oleh Woody",
+        "Diikat pada truk sampah", "Hidup bahagia di Sunnyside"
     )
 
     private val jawabanBenar = arrayOf(
@@ -43,13 +49,19 @@ class MainActivity : AppCompatActivity() {
         "Cara dia manipulasi dan mengontrol situasi",
         "Dibuang ke tempat sampah oleh Woody"
     )
-    
+
     private val userAnswers = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("darkMode", false)
+        applyDarkMode(isDarkMode)
+
+        // Initialize views
         soalTextView = findViewById(R.id.soal)
         rg = findViewById(R.id.pilihan)
         pilihanA = findViewById(R.id.pilihanA)
@@ -57,14 +69,20 @@ class MainActivity : AppCompatActivity() {
         pilihanC = findViewById(R.id.pilihanC)
         pilihanD = findViewById(R.id.pilihanD)
         gambarLotso = findViewById(R.id.lotsoImage)
-        
+
         loadQuestion()
-        
         rg.clearCheck()
 
-       
         benar = 0
         salah = 0
+    }
+
+    private fun applyDarkMode(isDarkMode: Boolean) {
+        if (isDarkMode) {
+            findViewById<View>(R.id.mainLayout).setBackgroundColor(resources.getColor(android.R.color.black))
+        } else {
+            findViewById<View>(R.id.mainLayout).setBackgroundColor(resources.getColor(R.color.pink))
+        }
     }
 
     private fun loadQuestion() {
@@ -79,11 +97,10 @@ class MainActivity : AppCompatActivity() {
         if (rg.checkedRadioButtonId != -1) {
             val selectedOption = findViewById<RadioButton>(rg.checkedRadioButtonId)
             val userAnswer = selectedOption.text.toString()
-            
+
             userAnswers.add(userAnswer)
-            
             rg.clearCheck()
-            
+
             if (userAnswer.trim().equals(jawabanBenar[nomor].trim(), ignoreCase = true)) {
                 benar++
             } else {
@@ -91,12 +108,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             nomor++
-            
+
             if (nomor < pertanyaanKuis.size) {
                 loadQuestion()
             } else {
                 val hasil = benar * 20
-
                 val intent = Intent(this, HasilKuis::class.java)
                 intent.putExtra("benar", benar)
                 intent.putExtra("salah", salah)
