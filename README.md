@@ -12,4 +12,4 @@ Alur Activity aplikasi: IntroductionActivity-> MainActivity-> HasilKuis-> Introd
 3. Image di hasil kuis: https://pin.it/53irSoTqv (pinterest) saya mengedit kembali image ini untuk menambahka 2 bubble conversation sebagai tempat informasi jumlah jawaban benar/salah dan informasi skor yang didapat.
 
 **Tampilan Aplikasi**
-
+[OutputLotsoQuiz.webm](https://github.com/user-attachments/assets/ab420ef6-dd0f-4219-9221-23fc02738f9a)
